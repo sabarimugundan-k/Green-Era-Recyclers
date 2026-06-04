@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async function () {
           { label: 'Cost', data: scenarios.map(s => s.cost), backgroundColor: '#EF4444', borderRadius: 4 }
         ]
       },
-      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true } } }
+      options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'top' } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true } } }
     });
   } catch (e) { console.error('Scenario load error:', e); }
 });

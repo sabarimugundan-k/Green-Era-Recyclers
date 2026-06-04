@@ -22,14 +22,14 @@ document.addEventListener('DOMContentLoaded', async function () {
           { label: 'Products', data: rp.map(r => r.value) || [0], backgroundColor: '#16A34A', borderRadius: 4 }
         ]
       },
-      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true } } }
+      options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'top' } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true } } }
     });
 
     const st = data.sustainability_trend || {};
     new Chart(document.getElementById('sustainabilityTrendsChart'), {
       type: 'line',
       data: { labels: st.labels || ['Jan','Feb','Mar','Apr','May','Jun'], datasets: [{ label: 'Score', data: st.data || [], borderColor: '#16A34A', backgroundColor: 'rgba(22,163,74,0.1)', fill: true, tension: 0.3, pointRadius: 4 }] },
-      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { min: 50, max: 100 } } }
+      options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { display: false } }, scales: { y: { min: 50, max: 100 } } }
     });
   } catch (e) { console.error('BI load error:', e); }
 });

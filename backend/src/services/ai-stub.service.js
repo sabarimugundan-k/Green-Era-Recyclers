@@ -23,7 +23,7 @@ const analyzeImage = () => {
 };
 
 const generateForecast = () => {
-  const regions = ['Chennai', 'Salem', 'Trichy', 'Kochi', 'Coimbatore', 'Madurai'];
+  const regions = ['Coimbatore', 'Pollachi', 'Mettupalayam', 'Sulur', 'Annur', 'Kinathukadavu', 'Valparai'];
   return {
     forecasted_waste: Math.floor(Math.random() * 20000) + 15000,
     growth_rate: parseFloat((Math.random() * 15 + 5).toFixed(1)),

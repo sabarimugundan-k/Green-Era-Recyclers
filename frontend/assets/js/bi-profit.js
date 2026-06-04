@@ -24,13 +24,13 @@ document.addEventListener('DOMContentLoaded', async function () {
           { label: 'Profit', data: pt.profit || [], borderColor: '#3B82F6', backgroundColor: 'rgba(59,130,246,0.1)', fill: true, tension: 0.3 }
         ]
       },
-      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } }, scales: { y: { beginAtZero: true } } }
+      options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'top' } }, scales: { y: { beginAtZero: true } } }
     });
 
     new Chart(document.getElementById('costChart'), {
       type: 'doughnut',
       data: { labels: ['Transport', 'Facility', 'Labor', 'Operations'], datasets: [{ data: [25, 30, 25, 20], backgroundColor: ['#3B82F6','#16A34A','#F59E0B','#EF4444'], borderWidth: 0 }] },
-      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+      options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'bottom' } } }
     });
   } catch (e) { console.error('BI profit load error:', e); }
 });

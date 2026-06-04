@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = 'http://localhost:5400/api';
 
 function checkAuth() {
   const token = localStorage.getItem('greenera_token');
@@ -48,9 +48,11 @@ document.addEventListener('DOMContentLoaded', function () {
   // Animated counters
   const counters = document.querySelectorAll('.counter');
   counters.forEach(counter => {
-    const target = parseInt(counter.getAttribute('data-target'));
+    const raw = counter.getAttribute('data-target');
+    const target = parseInt(raw);
+    if (isNaN(target)) return;
     const duration = 2000;
-    const step = Math.ceil(target / (duration / 16));
+    const step = Math.max(1, Math.ceil(target / (duration / 16)));
     let current = 0;
 
     const updateCounter = () => {

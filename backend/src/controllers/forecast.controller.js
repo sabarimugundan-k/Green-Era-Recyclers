@@ -36,7 +36,12 @@ exports.dashboard = catchAsync(async (req, res) => {
     product_demand: productDemand,
     region_forecast: regionForecast,
     trend: { labels: ['Y1', 'Y2', 'Y3', 'Y4', 'Y5'], data: [12000, 18500, 25000, 32000, 40000] },
-    region_data: results.map((r) => ({ region: r.region?.name || 'Unknown', forecast: r.forecasted_waste })),
+    region_data: Object.values(results.reduce((acc, r) => {
+      const name = r.region?.name || 'Unknown';
+      if (!acc[name]) acc[name] = { region: name, forecast: 0 };
+      acc[name].forecast += r.forecasted_waste;
+      return acc;
+    }, {})),
   });
 });
 

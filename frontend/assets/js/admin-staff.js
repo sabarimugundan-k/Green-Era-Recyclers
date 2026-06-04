@@ -10,6 +10,29 @@
   window.toggleSidebar = function () { document.getElementById('adminSidebar').classList.toggle('show'); };
 
   let staffData = [];
+  let regionData = [];
+
+  async function loadRegions() {
+    try {
+      const res = await fetch(API_BASE + '/regions', { headers });
+      const data = await res.json();
+      regionData = data.regions || data || [];
+      const sel = document.getElementById('sRegion');
+      sel.innerHTML = '<option value="">Select Region</option>';
+      regionData.forEach(r => {
+        const opt = document.createElement('option');
+        opt.value = r.id;
+        opt.textContent = r.name;
+        sel.appendChild(opt);
+      });
+      const optAll = document.createElement('option');
+      optAll.value = '';
+      optAll.textContent = 'All Regions';
+    } catch (e) {
+      const sel = document.getElementById('sRegion');
+      sel.innerHTML = '<option value="">Region unavailable</option>';
+    }
+  }
 
   async function loadStaff() {
     try {
@@ -93,7 +116,8 @@
     document.getElementById('sPhone').value = s.phone || '';
     document.getElementById('sRole').value = s.role;
     document.getElementById('sRegion').value = s.region_id || '';
-    document.getElementById('passwordField').innerHTML = `<div class="form-floating"><input type="password" class="form-control" id="sPassword" placeholder="Leave blank"><label>New Password</label></div>`;
+    document.getElementById('passwordField').innerHTML = `<div class="form-floating"><input type="password" class="form-control" id="sPassword" placeholder="Leave blank to keep current"><label>New Password (leave blank to keep)</label></div>`;
+    document.getElementById('sPassword').required = false;
     new bootstrap.Modal(document.getElementById('staffModal')).show();
   };
 
@@ -150,7 +174,9 @@
 
     try {
       if (editId) {
-        await fetch(API_BASE + '/admin/staff/' + editId, { method: 'PUT', headers, body: JSON.stringify({ full_name, email, phone, role, region_id }) });
+        const body = { full_name, email, phone, role, region_id };
+        if (password && password.length >= 4) body.password = password;
+        await fetch(API_BASE + '/admin/staff/' + editId, { method: 'PUT', headers, body: JSON.stringify(body) });
         showToast('Staff updated');
       } else {
         if (!password || password.length < 4) { showToast('Password required (4+ chars)', 'error'); return; }
@@ -172,4 +198,5 @@
   });
 
   loadStaff();
+  loadRegions();
 })();

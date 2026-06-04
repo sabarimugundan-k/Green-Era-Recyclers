@@ -34,18 +34,18 @@ document.addEventListener('DOMContentLoaded', async function () {
       return { label: reg, data: vals };
     });
 
-    new Chart(document.getElementById('forecastResultsChart'), {
+    new Chart(document.getElementById('forecastGrowthChart'), {
       type: 'bar',
       data: { labels: years.map(String), datasets: regionData.slice(0, 5).map((rd, i) => ({
         label: rd.label, data: rd.data, backgroundColor: ['#8B5CF6','#16A34A','#14B8A6','#D97706','#EF4444'][i], borderRadius: 3
       })) },
-      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true } } }
+      options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'top' } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true } } }
     });
 
     new Chart(document.getElementById('productDemandChart'), {
       type: 'bar',
       data: { labels: regions.slice(0, 6), datasets: [{ label: 'Waste (t)', data: regions.slice(0, 6).map(reg => { const f = results.find(r => r.region?.name === reg); return f ? f.forecasted_waste : 0; }), backgroundColor: '#16A34A', borderRadius: 4 }] },
-      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true } } }
+      options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true } } }
     });
   } catch (e) { console.error('Forecast results error:', e); }
 });

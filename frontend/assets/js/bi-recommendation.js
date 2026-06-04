@@ -13,7 +13,7 @@ async function runRecommendations() {
   try {
     const res = await fetch(API_BASE + '/bi/recommendations', {
       method: 'POST', headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ transportation: transport, facility: labor, labor: operational, operational: 0 })
+      body: JSON.stringify({ transportation: transport, facility: facility, labor: labor, operational: operational })
     });
     const data = await res.json();
     document.getElementById('currentProfit').textContent = '\u20B9' + (data.current_profit || 0).toLocaleString('en-IN');

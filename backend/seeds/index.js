@@ -8,16 +8,16 @@ async function seed() {
     await sequelize.sync({ force: true });
     console.log('Database reset & synced');
 
-    // Regions
+    // Regions (Primary Coverage)
     const regions = await Region.bulkCreate([
       { name: 'Coimbatore', type: 'city' },
-      { name: 'Chennai', type: 'city' },
-      { name: 'Salem', type: 'city' },
-      { name: 'Trichy', type: 'city' },
-      { name: 'Kochi', type: 'city' },
-      { name: 'Madurai', type: 'city' },
+      { name: 'Pollachi', type: 'city' },
+      { name: 'Mettupalayam', type: 'city' },
+      { name: 'Sulur', type: 'city' },
+      { name: 'Annur', type: 'city' },
+      { name: 'Kinathukadavu', type: 'city' },
+      { name: 'Valparai', type: 'city' },
       { name: 'Tamil Nadu', type: 'state' },
-      { name: 'Kerala', type: 'state' },
     ]);
     console.log(`Created ${regions.length} regions`);
 
@@ -27,19 +27,16 @@ async function seed() {
     const rootHash = await bcrypt.hash('root@123', 10);
 
     const users = await User.bulkCreate([
-      { username: 'root', email: 'root@greenera.com', password_hash: rootHash, full_name: 'Root User', phone: '9876543210', role: 'root', region_id: 1 },
-      { username: 'admin', email: 'admin@greenera.com', password_hash: adminHash, full_name: 'Super Admin', phone: '9876543211', role: 'admin', region_id: 1 },
-      { username: 'admin_tn', email: 'admin.tn@greenera.com', password_hash: adminHash, full_name: 'Tamil Nadu Admin', phone: '9876543212', role: 'admin', region_id: 7 },
-      { username: 'admin_kl', email: 'admin.kl@greenera.com', password_hash: adminHash, full_name: 'Kerala Admin', phone: '9876543213', role: 'admin', region_id: 8 },
-      { username: 'center_chennai', email: 'chennai@greenera.com', password_hash: hash, full_name: 'Chennai Center Manager', phone: '9876543214', role: 'center_manager', region_id: 2 },
-      { username: 'center_salem', email: 'salem@greenera.com', password_hash: hash, full_name: 'Salem Center Manager', phone: '9876543215', role: 'center_manager', region_id: 3 },
-      { username: 'center_trichy', email: 'trichy@greenera.com', password_hash: hash, full_name: 'Trichy Center Manager', phone: '9876543216', role: 'center_manager', region_id: 4 },
-      { username: 'center_kochi', email: 'kochi@greenera.com', password_hash: hash, full_name: 'Kochi Center Manager', phone: '9876543217', role: 'center_manager', region_id: 5 },
-      { username: 'employee', email: 'employee@greenera.com', password_hash: adminHash, full_name: 'Staff User', phone: '9876543218', role: 'employee', region_id: 2 },
-      { username: 'emp_priya', email: 'priya@greenera.com', password_hash: hash, full_name: 'Priya Sharma', phone: '9876543219', role: 'employee', region_id: 2 },
-      { username: 'emp_ravi', email: 'ravi@greenera.com', password_hash: hash, full_name: 'Ravi Kumar', phone: '9876543220', role: 'employee', region_id: 3 },
-      { username: 'emp_sneha', email: 'sneha@greenera.com', password_hash: hash, full_name: 'Sneha Patel', phone: '9876543221', role: 'employee', region_id: 5 },
-      { username: 'emp_arun', email: 'arun@greenera.com', password_hash: hash, full_name: 'Arun Raj', phone: '9876543222', role: 'employee', region_id: 4 },
+      { username: 'root', email: 'root@greenera.in', password_hash: rootHash, full_name: 'Root User', phone: '9876543210', role: 'root', region_id: 1 },
+      { username: 'admin', email: 'admin@greenera.in', password_hash: adminHash, full_name: 'Super Admin', phone: '9876543211', role: 'admin', region_id: 1 },
+      { username: 'admin_tn', email: 'admin.tn@greenera.in', password_hash: adminHash, full_name: 'Tamil Nadu Admin', phone: '9876543212', role: 'admin', region_id: 8 },
+      { username: 'pollachi_mgr', email: 'pollachi@greenera.in', password_hash: hash, full_name: 'Pollachi Center Manager', phone: '9876543213', role: 'center_manager', region_id: 2 },
+      { username: 'mettupalayam_mgr', email: 'mettupalayam@greenera.in', password_hash: hash, full_name: 'Mettupalayam Center Manager', phone: '9876543214', role: 'center_manager', region_id: 3 },
+      { username: 'employee', email: 'employee@greenera.in', password_hash: adminHash, full_name: 'Staff User', phone: '9876543215', role: 'employee', region_id: 1 },
+      { username: 'emp_priya', email: 'priya@greenera.in', password_hash: hash, full_name: 'Priya Sharma', phone: '9876543216', role: 'employee', region_id: 1 },
+      { username: 'emp_ravi', email: 'ravi@greenera.in', password_hash: hash, full_name: 'Ravi Kumar', phone: '9876543217', role: 'employee', region_id: 2 },
+      { username: 'emp_sneha', email: 'sneha@greenera.in', password_hash: hash, full_name: 'Sneha Patel', phone: '9876543218', role: 'employee', region_id: 3 },
+      { username: 'emp_arun', email: 'arun@greenera.in', password_hash: hash, full_name: 'Arun Raj', phone: '9876543219', role: 'employee', region_id: 1 },
     ]);
     console.log(`Created ${users.length} users`);
 
@@ -58,25 +55,28 @@ async function seed() {
     ]);
     console.log(`Created ${products.length} product types`);
 
-    // Facilities
+    // Facilities (Collection Centers)
     const facilities = await Facility.bulkCreate([
-      { name: 'Coimbatore HQ', type: 'collection_center', region_id: 1, capacity: 5000, rent: 150000, electricity_cost: 45000, staff_cost: 200000 },
-      { name: 'Chennai Collection Center', type: 'collection_center', region_id: 2, capacity: 3000, rent: 100000, electricity_cost: 35000, staff_cost: 150000 },
-      { name: 'Salem Collection Center', type: 'collection_center', region_id: 3, capacity: 2000, rent: 60000, electricity_cost: 20000, staff_cost: 100000 },
-      { name: 'Trichy Collection Center', type: 'collection_center', region_id: 4, capacity: 2000, rent: 55000, electricity_cost: 18000, staff_cost: 90000 },
-      { name: 'Kochi Collection Center', type: 'collection_center', region_id: 5, capacity: 2500, rent: 80000, electricity_cost: 25000, staff_cost: 120000 },
-      { name: 'Coimbatore Processing Hub', type: 'preprocessing_unit', region_id: 1, capacity: 10000, rent: 300000, electricity_cost: 80000, staff_cost: 350000 },
-      { name: 'Chennai Dismantling Unit', type: 'dismantling', region_id: 2, capacity: 4000, rent: 120000, electricity_cost: 40000, staff_cost: 180000 },
+      { name: 'CC001 - Green Era Central Collection Hub', type: 'collection_center', region_id: 1, capacity: 5000, rent: 150000, electricity_cost: 45000, staff_cost: 200000 },
+      { name: 'CC002 - Green Era North Collection Center - Thudiyalur', type: 'collection_center', region_id: 1, capacity: 3000, rent: 80000, electricity_cost: 25000, staff_cost: 120000 },
+      { name: 'CC003 - Green Era South Collection Center - Kuniyamuthur', type: 'collection_center', region_id: 1, capacity: 2500, rent: 70000, electricity_cost: 22000, staff_cost: 100000 },
+      { name: 'CC004 - Green Era East Collection Center - Peelamedu', type: 'collection_center', region_id: 1, capacity: 3000, rent: 90000, electricity_cost: 28000, staff_cost: 130000 },
+      { name: 'CC005 - Green Era West Collection Center - Vadavalli', type: 'collection_center', region_id: 1, capacity: 2000, rent: 60000, electricity_cost: 20000, staff_cost: 100000 },
+      { name: 'CC006 - Green Era Industrial Collection Hub - SIDCO', type: 'collection_center', region_id: 1, capacity: 4000, rent: 120000, electricity_cost: 35000, staff_cost: 160000 },
+      { name: 'CC007 - Green Era IT Collection Hub - Saravanampatti', type: 'collection_center', region_id: 1, capacity: 3500, rent: 100000, electricity_cost: 30000, staff_cost: 140000 },
+      { name: 'Green Era Processing Hub - Edayarpalayam', type: 'preprocessing_unit', region_id: 1, capacity: 10000, rent: 300000, electricity_cost: 80000, staff_cost: 350000 },
     ]);
     console.log(`Created ${facilities.length} facilities`);
 
-    // Logistics Routes
+    // Logistics Routes (to Processing Hub)
     const routes = await LogisticsRoute.bulkCreate([
-      { route_name: 'Chennai - Coimbatore', origin_facility_id: 2, destination_facility_id: 6, distance_km: 510, fuel_cost: 25000, driver_salary: 8000, vehicle_cost: 15000, maintenance_cost: 5000 },
-      { route_name: 'Salem - Coimbatore', origin_facility_id: 3, destination_facility_id: 6, distance_km: 160, fuel_cost: 8000, driver_salary: 4000, vehicle_cost: 5000, maintenance_cost: 2000 },
-      { route_name: 'Trichy - Coimbatore', origin_facility_id: 4, destination_facility_id: 6, distance_km: 260, fuel_cost: 13000, driver_salary: 5000, vehicle_cost: 8000, maintenance_cost: 3000 },
-      { route_name: 'Kochi - Coimbatore', origin_facility_id: 5, destination_facility_id: 6, distance_km: 200, fuel_cost: 10000, driver_salary: 4500, vehicle_cost: 6000, maintenance_cost: 2500 },
-      { route_name: 'Chennai - Salem', origin_facility_id: 2, destination_facility_id: 3, distance_km: 350, fuel_cost: 17000, driver_salary: 6000, vehicle_cost: 10000, maintenance_cost: 3500 },
+      { route_name: 'Central Hub to Processing Hub', origin_facility_id: 1, destination_facility_id: 8, distance_km: 12, fuel_cost: 1500, driver_salary: 2000, vehicle_cost: 1000, maintenance_cost: 500 },
+      { route_name: 'North Center to Processing Hub', origin_facility_id: 2, destination_facility_id: 8, distance_km: 18, fuel_cost: 2000, driver_salary: 2500, vehicle_cost: 1500, maintenance_cost: 600 },
+      { route_name: 'South Center to Processing Hub', origin_facility_id: 3, destination_facility_id: 8, distance_km: 22, fuel_cost: 2500, driver_salary: 2500, vehicle_cost: 1500, maintenance_cost: 700 },
+      { route_name: 'East Center to Processing Hub', origin_facility_id: 4, destination_facility_id: 8, distance_km: 15, fuel_cost: 1800, driver_salary: 2000, vehicle_cost: 1200, maintenance_cost: 500 },
+      { route_name: 'West Center to Processing Hub', origin_facility_id: 5, destination_facility_id: 8, distance_km: 20, fuel_cost: 2200, driver_salary: 2500, vehicle_cost: 1500, maintenance_cost: 600 },
+      { route_name: 'Industrial Hub to Processing Hub', origin_facility_id: 6, destination_facility_id: 8, distance_km: 10, fuel_cost: 1200, driver_salary: 2000, vehicle_cost: 1000, maintenance_cost: 400 },
+      { route_name: 'IT Hub to Processing Hub', origin_facility_id: 7, destination_facility_id: 8, distance_km: 14, fuel_cost: 1600, driver_salary: 2000, vehicle_cost: 1200, maintenance_cost: 500 },
     ]);
     console.log(`Created ${routes.length} logistics routes`);
 
@@ -176,10 +176,11 @@ async function seed() {
 
     // Recommendations
     await Recommendation.bulkCreate([
-      { type: 'new_center', title: 'Open Collection Center in Madurai', description: 'Southern Tamil Nadu is underserved. Opening a center in Madurai could increase collection by 25%.', feasibility: 'high', estimated_cost: 5000000, estimated_benefit: 15000000 },
-      { type: 'new_unit', title: 'Add Preprocessing Unit in Kochi', description: 'Kerala region needs dedicated preprocessing to reduce transport costs.', feasibility: 'medium', estimated_cost: 8000000, estimated_benefit: 20000000 },
-      { type: 'expansion', title: 'Expand Coimbatore Processing Hub', description: 'Current capacity at 85%. Expansion needed to handle forecasted growth.', feasibility: 'high', estimated_cost: 12000000, estimated_benefit: 35000000 },
-      { type: 'logistics_optimization', title: 'Optimize Trichy-Coimbatore Route', description: 'Alternative route via Karur could reduce distance by 40 km.', feasibility: 'high', estimated_cost: 500000, estimated_benefit: 2000000 },
+      { type: 'new_center', title: 'Expand to Pollachi Collection Center', description: 'Pollachi is a growing market. Establishing a collection center could increase coverage by 20%.', feasibility: 'high', estimated_cost: 3000000, estimated_benefit: 10000000 },
+      { type: 'new_unit', title: 'Add Dismantling Unit at Industrial Hub', description: 'CC006 SIDCO hub needs dedicated dismantling capacity to reduce processing hub congestion.', feasibility: 'medium', estimated_cost: 6000000, estimated_benefit: 18000000 },
+      { type: 'expansion', title: 'Expand Processing Hub Capacity', description: 'Edayarpalayam processing hub at 85% capacity. Expansion needed to handle forecasted growth.', feasibility: 'high', estimated_cost: 12000000, estimated_benefit: 35000000 },
+      { type: 'logistics_optimization', title: 'Optimize West Zone Route', description: 'Alternative route from Vadavalli to processing hub via Mettupalayam Road could reduce distance.', feasibility: 'medium', estimated_cost: 500000, estimated_benefit: 1500000 },
+      { type: 'new_center', title: 'Open Collection Center in Tiruppur', description: 'Tiruppur is a major industrial hub. Expanding there could increase industrial e-waste collection by 30%.', feasibility: 'medium', estimated_cost: 5000000, estimated_benefit: 15000000 },
     ]);
     console.log('Created recommendations');
 

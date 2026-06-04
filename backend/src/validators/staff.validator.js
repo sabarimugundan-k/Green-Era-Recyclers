@@ -17,6 +17,7 @@ const updateStaffSchema = Joi.object({
   role: Joi.string().valid('admin', 'center_manager', 'employee'),
   region_id: Joi.number().integer().allow(null),
   is_active: Joi.boolean(),
+  password: Joi.string().min(4).max(100),
 });
 
 module.exports = { createStaffSchema, updateStaffSchema };

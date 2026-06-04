@@ -61,7 +61,12 @@ exports.getOne = catchAsync(async (req, res) => {
 exports.update = catchAsync(async (req, res) => {
   const user = await User.findByPk(req.params.id);
   if (!user) throw new AppError('Staff not found', 404);
-  await user.update(req.body);
+  const updateData = { ...req.body };
+  if (updateData.password) {
+    updateData.password_hash = await bcrypt.hash(updateData.password, 10);
+    delete updateData.password;
+  }
+  await user.update(updateData);
   await log({ userId: req.user.id, action: 'staff_updated', entityType: 'staff', entityId: user.id });
   res.json({ user: { ...user.toJSON(), password_hash: undefined } });
 });

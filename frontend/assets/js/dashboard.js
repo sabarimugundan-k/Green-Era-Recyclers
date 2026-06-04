@@ -65,7 +65,7 @@
         }]
       },
       options: {
-        responsive: true, maintainAspectRatio: false,
+        responsive: true, maintainAspectRatio: true,
         plugins: { legend: { position: 'top', labels: { usePointStyle: true, padding: 20 } } },
         scales: { y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } }, x: { grid: { display: false } } }
       }
@@ -86,7 +86,7 @@
         }]
       },
       options: {
-        responsive: true, maintainAspectRatio: false, cutout: '65%',
+        responsive: true, maintainAspectRatio: true, cutout: '65%',
         plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, padding: 12, font: { size: 11 } } } }
       }
     });

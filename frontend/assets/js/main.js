@@ -1,4 +1,5 @@
-// ───── Navigation & Auth ─────
+const API_BASE = 'http://localhost:5000/api';
+
 function checkAuth() {
   const token = localStorage.getItem('greenera_token');
   const user = JSON.parse(localStorage.getItem('greenera_user') || 'null');
